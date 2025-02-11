@@ -6,6 +6,11 @@
     <title>Document</title>
 </head>
 <body>
+    <nav>
+        <a href={% url "inicio" %}>Inicio</a>
+        <a href={% url "crear_auto" %}>Crear auto</a>
+        <a href={% url "listado_de_autos" %}>Listado de autos</a>
+    </nav>
     <h1>Hola {{nombre}} {{apellido}}</h1>
     <p>{{hora}}</p>
 </body>
