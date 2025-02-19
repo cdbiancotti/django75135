@@ -1,0 +1,13 @@
+{% extends "template_base.html" %}
+
+{% block title_head %}Auto{% endblock title_head %}
+
+{% block h1_header %}Informacion de {{auto}}{% endblock h1_header %}
+
+{% block contenido %}
+<ul>
+    <li>Marca: {{auto.marca}}</li>
+    <li>Modelo: {{auto.modelo}}</li>
+    <li>Descripcion: {{auto.descripcion}}</li>
+</ul>
+{% endblock contenido %}

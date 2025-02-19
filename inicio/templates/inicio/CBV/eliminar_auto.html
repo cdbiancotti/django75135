@@ -1,0 +1,15 @@
+{% extends "template_base.html" %}
+
+{% block title_head %}Eliminar Auto{% endblock title_head %}
+
+
+{% block h1_header %}Confirmacion de borrado{% endblock h1_header %}
+
+{% block contenido %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Confirma que quiere eliminar el auto: {{auto}}</p>
+    <input type="submit" value="Confirmar">
+</form>
+{% endblock contenido %}

@@ -1,0 +1,15 @@
+{% extends "template_base.html" %}
+
+{% block title_head %}Modificar Auto{% endblock title_head %}
+
+
+{% block h1_header %}Formulario de modificacion{% endblock h1_header %}
+
+{% block contenido %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{form}}
+    <input type="submit" value="Modificar auto">
+</form>
+{% endblock contenido %}

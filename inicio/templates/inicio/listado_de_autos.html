@@ -1,34 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de autos</title>
-</head>
-<body>
-    <nav>
-        <a href={% url "inicio" %}>Inicio</a>
-        <a href={% url "crear_auto" %}>Crear auto</a>
-        <a href={% url "listado_de_autos" %}>Listado de autos</a>
-    </nav>
-    <h1>Listado de autos</h1>
-    <form action="">
-        {{formulario}}
-        <input type="submit" value="Buscar">
-    </form>
+{% extends "template_base.html" %}
 
-    {% if autos %}
-    <ul>
-        {% for auto in autos %}
-        <li>
-            {{auto}}
-        </li>
-        {% endfor %}
-    </ul>
-        
-    {% else %}
-    <p>No hay autos cargados.</p>
-    {% endif %}
+{% block title_head %}Listado de autos{% endblock title_head %}
 
-</body>
-</html>
+{% block h1_header %}Listado de autos{% endblock h1_header %}
+
+{% block contenido %}
+
+<form action="">
+    {{formulario}}
+    <input type="submit" value="Buscar">
+</form>
+
+{% if autos %}
+<ul>
+    {% for auto in autos %}
+    <li>
+        {{auto}} |
+        <a href={% url "eliminar_auto" auto.id %}>Eliminar</a> |
+        <a href={% url "ver_auto" auto.id %}>Ver mas</a> |
+        <a href={% url "modificar_auto" auto.id %}>Modificar</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% else %}
+<p>No hay autos cargados.</p>
+{% endif %}
+{% endblock contenido %}
