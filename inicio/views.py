@@ -5,6 +5,8 @@ from inicio.models import Auto
 from inicio.forms import CrearAuto, BuscarAuto, ModificarAuto
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 def inicio(request):
@@ -30,8 +32,9 @@ def crear_auto(request):
             marca = formulario.cleaned_data.get('marca')
             modelo = formulario.cleaned_data.get('modelo')
             descripcion =formulario.cleaned_data.get('descripcion')
+            fecha_creacion =formulario.cleaned_data.get('fecha_creacion')
             
-            auto = Auto(marca=marca, modelo=modelo, descripcion=descripcion)
+            auto = Auto(marca=marca, modelo=modelo, descripcion=descripcion, fecha_creacion=fecha_creacion)
             auto.save()
             
             return redirect("listado_de_autos")
@@ -48,6 +51,7 @@ def listado_de_autos(request):
         
     return render(request, 'inicio/listado_de_autos.html', {'autos': autos, 'formulario': formulario})
 
+@login_required
 def ver_auto(request, auto_id):
     auto = Auto.objects.get(id=auto_id)
     return render(request, 'inicio/ver_auto.html', {'auto': auto})
@@ -73,13 +77,14 @@ def modificar_auto(request, auto_id):
     return render(request, 'inicio/modificar_auto.html', {'formulario': formulario})
 
 # CBV
-class ModificarAutoVista(UpdateView):
+class ModificarAutoVista(LoginRequiredMixin, UpdateView):
     model = Auto
     template_name = "inicio/CBV/modificar_auto.html"
-    fields = "__all__"
+    # fields = "__all__"
+    form_class = ModificarAuto
     success_url = reverse_lazy('listado_de_autos')
 
-class EliminarAutoVista(DeleteView):
+class EliminarAutoVista(LoginRequiredMixin, DeleteView):
     model = Auto
     template_name = "inicio/CBV/eliminar_auto.html"
     success_url = reverse_lazy('listado_de_autos')

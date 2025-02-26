@@ -31,6 +31,25 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href={% url "crear_auto" %}>Crear auto</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href={% url "listado_de_autos" %}>Listado de autos</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href={% url "editar_perfil" %}>
+                            {% if request.user.infoextra.avatar %}
+                            <img src={{request.user.infoextra.avatar.url}} alt="" height='40px'>
+                            {% endif %}
+                            
+                            {{request.user.username}}
+                        </a></li>
+                        <li class="nav-item mx-0 mx-lg-1">
+                            <form action={% url "logout" %} method="post">
+                                {% csrf_token %}
+                                <input class="btn btn-danger py-3 px-0 px-lg-3 rounded" type="submit" value="Cerrar sesion">
+                            </form>
+                        </li>
+                        {% else %}
+                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-primary nav-link py-3 px-0 px-lg-3 rounded" href={% url "login" %}>Iniciar sesion</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-info nav-link py-3 px-0 px-lg-3 rounded" href={% url "registro" %}>Registrarse</a></li>
+                        {% endif %}
+                    
                     </ul>
                 </div>
             </div>

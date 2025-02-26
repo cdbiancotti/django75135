@@ -1,0 +1,15 @@
+{% extends "template_base.html" %}
+
+{% block title_head %}Iniciar sesion{% endblock title_head %}
+
+
+{% block h1_header %}Iniciar sesion{% endblock h1_header %}
+
+{% block contenido %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{formulario}}
+    <input type="submit" value="Iniciar sesion">
+</form>
+{% endblock contenido %}
